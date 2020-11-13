@@ -8,6 +8,6 @@ before_script:
 script:
   - cmake ../3818
   - make -j
-  - ./vector/vector
+  - ./test/MP2_TESTS
 notifications:
   email: false
