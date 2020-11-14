@@ -10,8 +10,8 @@ class TStack
 {
 protected:
     int length;
-    T* x;
-    int ind;
+    T* data;
+    int top;
     bool f;
 public:
     TStack(int size = 0, bool _f=true);
@@ -22,7 +22,7 @@ public:
 
     void Push(T d);
     T Get();
-    void SetX(T* _x, int _size);
+    void SetData(T* _x, int _size, int _top);
 
     bool IsEmpty() const;
     bool IsFull() const;
@@ -37,8 +37,8 @@ public:
 
 template <class T1>
 ostream& operator<< (ostream& ostr, const TStack<T1>& A) {
-    for (int i = 0; i < A.ind; i++) {
-        ostr << A.x[i] << " ";
+    for (int i = 0; i < A.top; i++) {
+        ostr << A.data[i] << " ";
     }
     return ostr;
 }
@@ -65,11 +65,11 @@ inline TStack<T>::TStack(int size, bool _f)
         this->f = _f;
         if (f)
         {
-            x = new T[length];
+            data = new T[length];
             for (int i = 0; i < length; i++)
-                x[i] = 0;
+                data[i] = 0;
         }
-        this->ind = 0;
+        this->top = 0;
     }
     else
         throw new exception;
@@ -79,17 +79,17 @@ template <class T>
 TStack<T>::TStack(TStack<T>& _v)
 {
     length = _v.length;
-    ind = _v.ind;
+    top = _v.top;
     f = _v.f;
     if (f)
     {
-        x = new T[length];
+        data = new T[length];
         for (int i = 0; i < length; i++)
-            x[i] = _v.x[i];
+            data[i] = _v.data[i];
     }
     else 
     {
-        x = _v.x;
+        data = _v.data;
     }
 }
 
@@ -99,10 +99,11 @@ TStack<T>::~TStack()
     length = 0;
     if (f)
     {
-        if (x != NULL)
-            delete[] x;
-        x = 0;
-
+        if (data != NULL)
+        {
+            delete[] data;
+            data = 0;
+        }
     }
     else
         throw new exception;
@@ -118,61 +119,62 @@ TStack<T>& TStack<T>::operator =(TStack<T>& _v)
     f = _v.f;
     if (f)
     {
-        delete[] x;
-        this->x = new T[length];
+        delete[] data;
+        this->data = new T[length];
         for (int i = 0; i < length; i++)
-            x[i] = _v.x[i];
+            data[i] = _v.data[i];
     }
     else
     {
-        x = _v.x;
+        data = _v.data;
     }
-    this->ind = _v.ind;
+    this->top = _v.top;
     return *this;
 }
 
 template<class T>
 inline void TStack<T>::Push(T d)
 {
-    if (ind >= length)
+    if (top >= length)
         throw new exception;
 
-    x[ind] = d;
-    ind++;
+    data[top] = d;
+    top++;
 }
 
 template<class T>
 inline T TStack<T>::Get()
 {
-    if (ind == 0)
+    if (top == 0)
         throw new exception;
 
-    T d = x[ind - 1];
-    ind--;
+    T d = data[top - 1];
+    top--;
     return d;
 }
 
 template<class T>
-inline void TStack<T>::SetX(T* _x,int _size)
+inline void TStack<T>::SetData(T* _x,int _size, int _top)
 {
     if (f)
-        delete[] x;
+        delete[] data;
 
     length = _size;
     f = false;
-    x = _x;
+    data = _x;
+    top = _top;
 }
 
 template<class T>
 inline bool TStack<T>::IsEmpty() const
 {
-    return ind == 0;
+    return top == 0;
 }
 
 template<class T>
 inline bool TStack<T>::IsFull() const
 {
-    return ind == length;
+    return top == length;
 }
 
 template <class T>

@@ -5,16 +5,18 @@ project(${PROJECT_NAME}) # Название проекта
 
 set(MultiStackLib MultiStackLib) #Переменная с именем приложения
 set(main main)
+set(StackLib StackLib)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
   set(CMAKE_BUILD_TYPE Release) #Если нет то устанавливаем Release
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/MultiStackLib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/MultiStackLib ${CMAKE_CURRENT_SOURCE_DIR}/StackLib) #Добавляем директорию "${CMAKE_CURRENT_SOURCE_DIR}/vectorlib" в дополняемые каталоги включаемых файлов
 #${CMAKE_CURRENT_SOURCE_DIR} - стандартная переменная с адресом рабочей директории
 
 add_subdirectory(gtest) #Добавляем директорию с под-CMakeList-ом, и выполняем под-CMakeList
 add_subdirectory(MultiStackLib)
+add_subdirectory(StackLib)
 add_subdirectory(main)
 add_subdirectory(test)
 
