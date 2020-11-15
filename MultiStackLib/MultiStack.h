@@ -1,8 +1,8 @@
-#ifndef _TMULTISTACK_
-#define _TMULTISTACK_
+#ifndef _MULTISTACK_
+#define _MULTISTACK_
 
 #include <iostream>
-#include <math.h>
+//#include <math.h>
 
 #include "Stack.h"
 
@@ -22,7 +22,7 @@ protected:
     void StackRelocation(int i);
 
 public:
-    MultiStack(int size = 1, int _stackCount=1);
+    MultiStack(int size = 1, int stackCount=1);
     MultiStack(MultiStack<T>& _v);
     ~MultiStack();
 
@@ -175,7 +175,7 @@ inline MultiStack<T>::MultiStack(int size, int _stackCount)
         }
     }
     else
-        throw new exception;
+        throw -1;
 }
 
 template <class T>

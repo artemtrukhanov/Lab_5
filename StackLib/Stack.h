@@ -164,7 +164,7 @@ inline void TStack<T>::SetData(T* _x, int _size, int _top)
         if(x!=NULL)
             delete[] x;
 
-    length = _size;
+    this->length = _size;
     f = false;
     x = _x;
     top = _top;

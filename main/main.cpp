@@ -9,13 +9,13 @@ int main()
     TStack<int> a(3);
     a.Push(10);
     MultiStack<int> b(9, 3);
-    b.Push(11, 0);
-    b.Push(12, 1);
-    b.Push(12, 1);
-    b.Push(12, 1);
+    //b.Push(11, 0);
+    //b.Push(12, 1);
+    //b.Push(12, 1);
+    //b.Push(12, 1);
 
-    b.Push(15, 1);
+   // b.Push(15, 1);
     
-    cout<< b <<"hi"<<"\n";
+    cout<<a<<"\n";
     return 0;
 }
