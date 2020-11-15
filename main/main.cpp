@@ -2,20 +2,17 @@
 #include "Stack.h"
 #include "MultiStack.h"
 
-using namespace std;
 
 int main()
 {
-    TStack<int> a(3);
-    a.Push(10);
-    MultiStack<int> b(9, 3);
-    //b.Push(11, 0);
-    //b.Push(12, 1);
-    //b.Push(12, 1);
-    //b.Push(12, 1);
+    TMultiStack<int> b(9, 3);
+    b.Push(11, 0);
+    b.Push(12, 1);
+    b.Push(12, 1);
+    b.Push(12, 1);
 
-   // b.Push(15, 1);
+    b.Push(15, 1);
     
-    cout<<a<<"\n";
+    std::cout<<b<<"\n";
     return 0;
 }

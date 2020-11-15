@@ -104,11 +104,9 @@ TStack<T>::~TStack()
       if (x != NULL)
       {
           delete[] x;
-          x = 0;
       }
+      x = NULL;
   }
-  else
-      throw new exception;
  // x = 0;
 }
 

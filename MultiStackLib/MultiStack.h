@@ -2,14 +2,14 @@
 #define _MULTISTACK_
 
 #include <iostream>
-//#include <math.h>
+#include <math.h>
 
 #include "Stack.h"
 
 using namespace std;
 
 template <class T>
-class MultiStack
+class TMultiStack
 {
 protected:
     int length; // data size
@@ -22,11 +22,11 @@ protected:
     void StackRelocation(int i);
 
 public:
-    MultiStack(int size = 1, int stackCount=1);
-    MultiStack(MultiStack<T>& _v);
-    ~MultiStack();
+    TMultiStack(int size = 1, int _stackCount=1);
+    TMultiStack(TMultiStack<T>& _v);
+    ~TMultiStack();
 
-    MultiStack<T>& operator =(MultiStack<T>& _v);
+    TMultiStack<T>& operator =(TMultiStack<T>& _v);
 
     void Push(T d, int i);
     T Get(int i);
@@ -35,9 +35,9 @@ public:
     bool IsFull(int i) const;
 
     template <class T1>
-    friend ostream& operator<< (ostream& ostr, const MultiStack<T1>& A);
+    friend ostream& operator<< (ostream& ostr, const TMultiStack<T1>& A);
     template <class T1>
-    friend istream& operator >> (istream& istr, MultiStack<T1>& A);
+    friend istream& operator >> (istream& istr, TMultiStack<T1>& A);
 
     int Length();
 
@@ -45,7 +45,7 @@ public:
 };
 
 template <class T1>
-ostream& operator<< (ostream& ostr, const MultiStack<T1>& A) {
+ostream& operator<< (ostream& ostr, const TMultiStack<T1>& A) {
     for (int i = 0; i < A.stackCount; i++) {
         ostr << (A.stacks[i]) << " ";
     }
@@ -53,7 +53,7 @@ ostream& operator<< (ostream& ostr, const MultiStack<T1>& A) {
 }
 
 template <class T1>
-istream& operator >> (istream& istr, MultiStack<T1>& A) {
+istream& operator >> (istream& istr, TMultiStack<T1>& A) {
     int stCount=0;
     istr >> stCount;
     int size = 0;
@@ -67,7 +67,7 @@ istream& operator >> (istream& istr, MultiStack<T1>& A) {
 }
 
 template<class T>
-inline void MultiStack<T>::StackRelocation(int index)
+inline void TMultiStack<T>::StackRelocation(int index)
 {
     int freeSize=0;
     for (int i = 0; i < stackCount; i++)
@@ -142,14 +142,14 @@ inline void MultiStack<T>::StackRelocation(int index)
 }
 
 template<class T>
-inline MultiStack<T>::MultiStack(int size, int _stackCount)
+inline TMultiStack<T>::TMultiStack(int size, int _stackCount)
 {
     if ((size > 0)&&(_stackCount>0))
     {
         this->length = size;
         this->stackCount = _stackCount;
 
-        data = new T[length];
+        this->data = new T[length];
         for (int i = 0; i < length; i++)
            data[i] = 0;
 
@@ -179,16 +179,16 @@ inline MultiStack<T>::MultiStack(int size, int _stackCount)
 }
 
 template <class T>
-MultiStack<T>::MultiStack(MultiStack<T>& _v)
+TMultiStack<T>::TMultiStack(TMultiStack<T>& _v)
 {
     length = _v.length;
     stackCount = _v.stackCount;
 
-    data = new T[length];
+    this->data = new T[length];
     for (int i = 0; i < length; i++)
-        data[i] = _v.data[i];
+        this->data[i] = _v.data[i];
 
-    stacks = new TStack<T>[stackCount];
+    this->stacks = new TStack<T>[stackCount];
     for (int i = 0; i < stackCount; i++)
     {
         stacks[i] = _v.stacks[i];
@@ -197,24 +197,24 @@ MultiStack<T>::MultiStack(MultiStack<T>& _v)
 }
 
 template <class T>
-MultiStack<T>::~MultiStack()
+TMultiStack<T>::~TMultiStack()
 {
     length = 0;
     stackCount = 0;
 
-    if (data != NULL)
+    if (data == NULL)
     {
         delete[] data;
-        data = 0;
     }
 
-    if(stacks!=NULL)
+    if (stacks == NULL)
+    {
         delete[] stacks;
-
+    }
 }
 
 template <class T>
-MultiStack<T>& MultiStack<T>::operator =(MultiStack<T>& _v)
+TMultiStack<T>& TMultiStack<T>::operator =(TMultiStack<T>& _v)
 {
     if (this == &_v)
         return *this;
@@ -240,7 +240,7 @@ MultiStack<T>& MultiStack<T>::operator =(MultiStack<T>& _v)
 }
 
 template<class T>
-inline void MultiStack<T>::Push(T d, int i)
+inline void TMultiStack<T>::Push(T d, int i)
 {
     if (i < 0 || i >= stackCount)
         throw new exception;
@@ -254,7 +254,7 @@ inline void MultiStack<T>::Push(T d, int i)
 }
 
 template<class T>
-inline T MultiStack<T>::Get(int i)
+inline T TMultiStack<T>::Get(int i)
 {
     if (i < 0 || i >= stackCount)
         throw new exception;
@@ -267,7 +267,7 @@ inline T MultiStack<T>::Get(int i)
 }
 
 template<class T>
-inline bool MultiStack<T>::IsEmpty(int i) const
+inline bool TMultiStack<T>::IsEmpty(int i) const
 {
     if (i < 0 || i >= stackCount)
         throw new exception;
@@ -276,7 +276,7 @@ inline bool MultiStack<T>::IsEmpty(int i) const
 }
 
 template<class T>
-inline bool MultiStack<T>::IsFull(int i) const
+inline bool TMultiStack<T>::IsFull(int i) const
 {
     if (i < 0 || i >= stackCount)
         throw new exception;
@@ -285,13 +285,13 @@ inline bool MultiStack<T>::IsFull(int i) const
 }
 
 template <class T>
-int MultiStack<T>::Length()
+int TMultiStack<T>::Length()
 {
     return length;
 }
 
 template<class T>
-inline void MultiStack<T>::Resize(int size, int _stackCount)
+inline void TMultiStack<T>::Resize(int size, int _stackCount)
 {
     stacks[_stackCount].Resize(size);
 }
