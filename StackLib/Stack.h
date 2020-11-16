@@ -107,7 +107,6 @@ TStack<T>::~TStack()
       }
       x = NULL;
   }
- // x = 0;
 }
 
 template <class T>
